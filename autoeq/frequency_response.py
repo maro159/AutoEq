@@ -1158,6 +1158,7 @@ class FrequencyResponse:
                    parametric_eq_plot_kwargs=None,
                    fixed_band_eq_plot_kwargs=None,
                    equalized_plot_kwargs=None,
+                   equalized_fbeq_kwargs=None,
                    target_plot_kwargs=None,
                    close=False):
         """Plots frequency response graph."""
@@ -1211,10 +1212,12 @@ class FrequencyResponse:
         if fixed_band_eq and len(self.fixed_band_eq):
             ax.plot(
                 self.frequency, self.fixed_band_eq,
-                **self.kwarg_defaults(
-                    fixed_band_eq_plot_kwargs,
-                    label='Fixed Band Eq', linewidth=1, color='darkgreen', linestyle='--'
+                **self.kwarg_defaults(fixed_band_eq_plot_kwargs, label='Fixed Band Eq', linewidth=1, color='darkgreen', linestyle='--'
                 )
+            )
+            ax.plot(
+                 self.frequency, self.raw + self.fixed_band_eq,
+                **self.kwarg_defaults(equalized_plot_kwargs, label='Equalized Fixed Band Eq', linewidth=1, color='blue', linestyle="--")
             )
 
         if equalized and len(self.equalized_raw):
